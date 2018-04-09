@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script src="js/angular.min.js"></script>
+        <script>
+            var app = angular.module("myApp" ,[]);
+                      app.controller("myController" ,function($scope ,SalaryService){
+                          $scope.getGross = function(bs){
+                              var t1 = parseInt($scope.bs);
+                              $scope.grossSalary = SalaryService.getSal(t1);
+                          }
+                      })
+            
+                      app.service("HRAService" ,function(){
+                          this.getHRA = function(bs){
+                              var hra = ((bs * 7) / 100) ;
+                              return hra;
+                          }
+                      })
+            
+                      app.service("DAService" ,function(){
+                          this.getDA = function(bs){
+                              var da = ((bs * 11) / 100) ;
+                              return da;
+                          }
+                      })
+            
+                      app.service("TAService" ,function(){
+                          this.getTA = function(bs){
+                              var ta = ((bs * 9) / 100) ;
+                              return ta;
+                          }
+                      })
+            
+                      
+                      app.service("SalaryService" ,function(HRAService , DAService , TAService){
+                          this.getSal = function(bs){
+                              result = bs + HRAService.getHRA(bs) + DAService.getDA(bs) - TAService.getTA(bs);
+                              return result;
+                          }
+                      })
+        </script>
+    </head>
+    
+    <body ng-app="myApp">
+        <div class="container" ng-controller="myController">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Gross Salary Service</h4>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input type="text" ng-model="bs" class="form-control">
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-primary" ng-click="getGross()">GetGrossSalary</button>
+                                </div>
+                            </div>
+                            
+                            <p>Gross salary is:{{grossSalary}}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </body>
+</html>
