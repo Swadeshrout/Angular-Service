@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script src="js/angular.min.js"></script>
+        <script>
+            var app = angular.module("myApp" ,[]);
+                      app.controller("myController" ,function($scope ,Calculator){
+                          $scope.add = function(){
+                              /*alert('hi');*/
+                              var t1 = parseInt($scope.a);
+                              var t2 = parseInt($scope.b);
+                              $scope.res = Calculator.add( t1 , t2);
+                          }
+                          
+                          $scope.sub = function(){
+                              /*alert('sub');*/
+                              
+                              var t1 = parseInt($scope.a);
+                              var t2 = parseInt($scope.b);
+                              $scope.res = Calculator.sub(t1 , t2);
+                          } 
+                          
+                          $scope.mul = function(){
+                              var t1 = parseInt($scope.a);
+                              var t2 = parseInt($scope.b);
+                              $scope.res = Calculator.mul(t1 ,t2);
+                          }
+                          
+                          $scope.div = function(){
+                              var t1 = parseInt($scope.a);
+                              var t2 = parseInt($scope.b);
+                              $scope.res = Calculator.div(t1 ,t2);
+                          }
+                          
+                      })
+            
+                      app.service("Calculator" ,function(){
+                          this.add = function(a ,b){
+                              return (a + b);
+                          }
+                          
+                          this.sub = function(a ,b){
+                              return (a - b);
+                          }
+                          
+                          this.mul = function(a ,b){
+                              return (a * b);
+                          }
+                          
+                          this.div = function(a ,b){
+                              return (a / b);
+                          }
+                      });
+        </script>
+    </head>
+    
+    <body>
+        <div class="container-fluid" ng-app="myApp" ng-controller="myController">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading bg-primary">
+                            <h4>Calculator</h4>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="text" ng-model="a" class="form-control">
+                                    </div>
+                                    
+                                    <div class="col-sm-6">
+                                        <input type="text" ng-model="b" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <h4>Result:</h4>{{res}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="panel-footer text-center">
+                            <button type="submit" ng-click="add()" class="btn btn-primary">Add</button>
+                            <button type="submit" ng-click="sub()" class="btn btn-danger">Substract</button>
+                            <button type="submit" ng-click="mul()" class="btn btn-warning">Multiply</button>
+                            <button type="submit" ng-click="div()" class="btn btn-success">Divide</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+    </body>
+</html>
